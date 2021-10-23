@@ -9,6 +9,16 @@ class Tasks {
 
   _listTask = {};
 
+  get listArray() {
+    const list = [];
+    Object.keys(this._listTask).forEach(key => {
+      const task = this._listTask[key];
+      list.push(task)
+    });
+
+    return list;
+  }
+
   constructor() {
     this._listTask = {};
   }

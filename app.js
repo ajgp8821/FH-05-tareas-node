@@ -3,6 +3,7 @@ const { inquirerMenu,
         pause,
         readInput
 } = require('./helpers/inquirer');
+const { saveDB } = require('./helpers/saveFile');
 const Tasks = require('./models/tasks');
 
 const main = async() => {
@@ -20,12 +21,18 @@ const main = async() => {
         tasks.createTask(desc.trim());
         //console.log(desc);
       break;
+      
       case '2':
-        console.log( tasks._listTask );
+        console.log( tasks.listArray );
       break;
+      
       default:
         break;
     }
+
+    // saveDB(tasks.listArray);
+
+
     await pause();
 
   } while (opt != '0');
