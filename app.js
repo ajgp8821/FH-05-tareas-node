@@ -1,7 +1,10 @@
 require('colors');
-const { showMenu, pause } = require('./helpers/messages');
+const { inquirerMenu, pause } = require('./helpers/inquirer');
+const Task = require('./models/task');
+const Tasks = require('./models/tasks');
+// const { showMenu, pause } = require('./helpers/messages');
 
-console.clear();
+// console.clear();
 
 const main = async() => {
   
@@ -10,9 +13,15 @@ const main = async() => {
   let opt = '';
 
   do{
-    opt = await showMenu();
+    opt = await inquirerMenu();
     console.log({opt});
-    if (opt !== '0') await pause();
+    // if (opt !== '0')
+    // const tasks = new Tasks();
+    // const task = new Task('Compara comida');
+
+    // tasks._listTask[task.id] = task;
+    // console.log(tasks);
+    await pause();
 
   } while (opt != '0');
 
