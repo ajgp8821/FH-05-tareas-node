@@ -1,7 +1,9 @@
 require('colors');
 const { inquirerMenu,
         pause,
-        readInput
+        readInput,
+        listTaskDelete,
+        confirm
 } = require('./helpers/inquirer');
 const { saveDB, readDB } = require('./helpers/saveFile');
 const Tasks = require('./models/tasks');
@@ -39,6 +41,17 @@ const main = async() => {
         
       case '4':
         tasks.listPendingCompleted(false);
+      break;
+
+      case '6':
+        const id = await listTaskDelete(tasks.listArray);
+        if(id !== '0') {
+          const ok = await confirm('¿Esta seguro?');
+          if (ok) {
+            tasks.deleteTask(id);
+            console.log('Tarea borrada');
+          }
+        }
       break;
       
       default:
