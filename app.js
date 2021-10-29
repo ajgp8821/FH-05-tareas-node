@@ -3,13 +3,19 @@ const { inquirerMenu,
         pause,
         readInput
 } = require('./helpers/inquirer');
-const { saveDB } = require('./helpers/saveFile');
+const { saveDB, readDB } = require('./helpers/saveFile');
 const Tasks = require('./models/tasks');
 
 const main = async() => {
 
   let opt = '';
   const tasks = new Tasks();
+
+  const tasksDB = readDB();
+
+  if(tasksDB){ // Cargar tareas
+    tasks.loadTaskFromArr(tasksDB);
+  }
 
   do{
     opt = await inquirerMenu();
@@ -23,14 +29,23 @@ const main = async() => {
       break;
       
       case '2':
-        console.log( tasks.listArray );
+        tasks.allTasks();
+        // console.log( tasks.listArray );
+      break;
+
+      case '3':
+        tasks.listPendingCompleted(true);
+      break;
+        
+      case '4':
+        tasks.listPendingCompleted(false);
       break;
       
       default:
         break;
     }
 
-    // saveDB(tasks.listArray);
+    saveDB(tasks.listArray);
 
 
     await pause();
