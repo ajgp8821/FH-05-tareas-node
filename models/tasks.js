@@ -48,7 +48,7 @@ class Tasks {
       // console.log(`${'1.'.green} Crear una tarea`);
       const idx = `${i + 1}`.green;
       const { description, completedDate } = task;
-      console.log('completedDate',completedDate);
+      // console.log('completedDate',completedDate);
       const state = ( completedDate )
         ? 'Completada'.green
         : 'Pendiente'.red
@@ -65,13 +65,28 @@ class Tasks {
         : 'Pendiente'.red
       if(completed && completedDate){
         counter += 1;
-        console.log(`${ (counter + '.').green} ${description} :: ${state}`);
+        console.log(`${ (counter + '.').green} ${description} :: ${completedDate.green}`);
       }
       else if (!completed && !completedDate){
         counter += 1;
         console.log(`${ (counter + '.').green} ${description} :: ${state}`);
       }
     })
+  }
+
+  toggleCompleted( ids = [] ) {
+    ids.forEach( id => {
+      const task = this._listTask[id];
+      if ( !task.completedDate ) {
+        task.completedDate = new Date().toISOString()
+      }
+    });
+
+    this.listArray.forEach( task => {
+      if ( !ids.includes(task.id) ) {
+        this._listTask[task.id].completedDate = null;
+      }
+    });
   }
 
 }
